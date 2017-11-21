@@ -214,7 +214,7 @@ namespace ExpressionSerialization
         {
             var propertyName = (string) ParseConstantFromAttribute<string>(xml, "PropertyName");
             var declaringType = ParseTypeFromXml(xml.Element("DeclaringType"));
-            var ps = from paramXml in xml.Element("IndexParameters").Elements()
+            var ps = from paramXml in xml.Element("IndexParameters")?.Elements()
                 select ParseTypeFromXml(paramXml);
             return declaringType.GetProperty(propertyName);
         }
@@ -253,7 +253,6 @@ namespace ExpressionSerialization
             //var lambdaExpressionReturnType = type.GetMethod("Invoke").ReturnType;
             //if (lambdaExpressionReturnType.IsArray)
             //{
-
             //    type = typeof(IEnumerable<>).MakeGenericType(type.GetElementType());
             //}
             return Expression.Lambda(type, body, parameters);
